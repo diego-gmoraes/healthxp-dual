@@ -1,4 +1,4 @@
-import navBar from './components/NavBar'
+import navBar from './components/Navbar'
 import popUp from './components/PopUp'
 
 class StudentPage {
@@ -48,7 +48,7 @@ class StudentPage {
             .click()
     }
 
-    requiredMessage(label, text) {
+    alertMessage(label, text) {
         // XPATH de referência para encontrar o texto desejado
         //label[text()="Nome completo"]/..//span
         cy.contains('label', label)

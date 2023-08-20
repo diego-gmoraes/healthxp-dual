@@ -1,30 +1,51 @@
 {
     "create": {
-        "name":"Jeremy Adams",
+        "name": "Jeremy Adams",
         "email": "jeremy@yahoo.com",
         "age": "28",
         "weight": "72",
         "feet_tall": "1.80"
     },
     "duplicate": {
-        "name":"Bruce Wayne",
+        "name": "Bruce Wayne",
         "email": "bruce@wayne.com",
         "age": "39",
         "weight": "85",
         "feet_tall": "1.85"
     },
     "remove": {
-        "name":"Aluno para remover",
+        "name": "Aluno para remover",
         "email": "test@remove.com",
         "age": "23",
         "weight": "60",
         "feet_tall": "1.65"
     },
     "required": {
-        "name":"",
+        "name": "",
         "email": "",
         "age": "",
         "weight": "",
         "feet_tall": ""
+    },
+    "inv_age": {
+        "name": "Carlos Almeida",
+        "email": "carlos.almeida@gmail.com",
+        "age": "15",
+        "weight": "85",
+        "feet_tall": "1.77"
+    },
+    "inv_weight": {
+        "name": "Marcelo Castro",
+        "email": "marcelo.castro@outlook.com",
+        "age": "35",
+        "weight": "0",
+        "feet_tall": "1.82"
+    },
+    "inv_feet_tall": {
+        "name": "Andréia Barros ",
+        "email": "andreia.barros@outlook.com",
+        "age": "17",
+        "weight": "55",
+        "feet_tall": "-0.1"
     }
 }
