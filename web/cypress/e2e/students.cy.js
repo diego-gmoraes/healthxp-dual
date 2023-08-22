@@ -8,8 +8,11 @@ describe('students', () => {
 
         const student = students.create
 
-        cy.task('deleteStudent', student.email)
+        // deletando aluno pela task
+        // cy.task('deleteStudent', student.email)
 
+        // deletando aluno pela api helper
+        cy.deleteStudent(student.email)
         cy.adminLogin()
 
         studentPage.goToRegister()
@@ -21,8 +24,11 @@ describe('students', () => {
     it('não deve cadastrar com email duplicado', () => {
         const student = students.duplicate
         
-        cy.task('resetStudent', student)
+        // resetando aluno pela task
+        // cy.task('resetStudent', student)
 
+        // resetando aluno pela api helper
+        cy.resetStudent(student)
         cy.adminLogin()
 
         studentPage.goToRegister()
@@ -33,8 +39,11 @@ describe('students', () => {
     it('deve remover um aluno sem matricula', () => {
         const student = students.remove
 
-        cy.task('resetStudent', student)
+        // resetando aluno pela task
+        // cy.task('resetStudent', student)
 
+        // resetando aluno pela api helper
+        cy.resetStudent(student)
         cy.adminLogin()
 
         studentPage.search(student.name)
@@ -43,7 +52,7 @@ describe('students', () => {
         studentPage.popUp.haveText('Exclusão realizada com sucesso.')
     });
 
-    it.only('todos os campos são obrigatórios', () => {
+    it('todos os campos são obrigatórios', () => {
         const student =  students.required
 
         cy.adminLogin()
@@ -57,7 +66,7 @@ describe('students', () => {
         studentPage.alertMessage('Altura', 'A altura é obrigatória')
     });
 
-    it.only('não deve cadastrar aluno com menos de 16 anos', () => {
+    it('não deve cadastrar aluno com menos de 16 anos', () => {
         const student = students.inv_age
 
         cy.adminLogin()

@@ -7,7 +7,9 @@ describe('matriculas', () => {
     it('deve matricular um novo aluno', () => {
         const dataTest = data.create
 
-        cy.task('resetStudent', dataTest.student)
+        // resetando aluno pela task
+        // cy.task('resetStudent', dataTest.student)
+
         // deleta e depois insere o aluno novamente
         /* como a tabela no banco de dados está com cascade true, deletando um 
         registro (cadastro de aluno) que contenha chave estrangeira, tudo 
@@ -17,6 +19,9 @@ describe('matriculas', () => {
         realizar a matricula, não ficara duplicado, se não estivesse como 
         cascade true precisaria ser implementado uma função para deletar 
         a matricula também*/
+
+        // resetando aluno pela api helper
+        cy.resetStudent(dataTest.student)
 
         cy.adminLogin()
 
@@ -37,10 +42,13 @@ describe('matriculas', () => {
     it('não deve criar matricula duplicada', () => {
         const dataTest = data.duplicate
 
-        cy.task('resetStudent', dataTest.student)
-        //reseta o aluno
-        cy.createEnroll(dataTest)
+        // resetando aluno pela task
+        // cy.task('resetStudent', dataTest.student)
 
+        // resetando aluno pela api helper
+        cy.resetStudent(dataTest.student)
+    
+        cy.createEnroll(dataTest)
         cy.adminLogin()
 
         enrollmentsPage.navBar.goToEnrollments()

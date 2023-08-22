@@ -22,7 +22,7 @@ describe('login', () => {
         loginPage.popUp.haveText('Suas credenciais são inválidas, por favor tente novamente!')
     });
 
-    it('não deve logar com email não cadsatrado', () => {
+    it('não deve logar com email não cadastrado', () => {
         const user = users.email_not_found
 
         loginPage.doLogin(user)

@@ -23,11 +23,13 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+import 'dotenv/config'
 
 import users from '../fixtures/users.json'
 
 import loginPage from './pages/LoginPage'
 import studentPage from './pages/StudentPage'
+
 
 Cypress.Commands.add('adminLogin', () => {
    const user = users.admin
@@ -38,44 +40,35 @@ Cypress.Commands.add('adminLogin', () => {
 
 Cypress.Commands.add('createEnroll', (dataTest) => {
 
-   cy.task('selectStudentId', dataTest.student.email)
-      // consulta o Id do aluno
-      .then(result => {
+   cy.request({
+      url: Cypress.env('apiHelper') + '/enrolls',
+      method: 'POST',
+      body: {
+         email: dataTest.student.email,
+         plan_id: dataTest.plan.id,
+         price: dataTest.plan.price
+      }
+   }).then(response => {
+      expect(response.status).to.eq(201)
+   })
 
-         const user = users.admin
+})
 
-         // realiza o login como admin
-         cy.request({
-            url: 'http://localhost:3333/sessions',
-            method: 'POST',
-            body: {
-               email: user.email,
-               password: user.password
-            }
-         }).then(response => {
-            cy.log(response.body.token)
-            // recebe o token de autorização
+Cypress.Commands.add('resetStudent', (student) => {
+   cy.request({
+      url: Cypress.env('apiHelper')+ '/students',
+      method: 'POST',
+      body: student
+   }).then(response => {
+      expect(response.status).to.eq(201)
+   })
+})
 
-            // monta todas as informações para fazer a pré-matricula
-            const payload = {
-               student_id: result.success.rows[0].id,
-               plan_id: dataTest.plan.id,
-               credit_card: '4444'
-            }
-
-            // realiza a matricula prévia do aluno
-            cy.request({
-               url: 'http://localhost:3333/enrollments',
-               method: 'POST',
-               body: payload,
-               headers: {
-                  Authorization: 'Bearer ' + response.body.token
-                  // autorização com o token gerado no login admin
-               }
-            }).then(response => {
-               expect(response.status).to.eq(201)
-            })
-         })
-
-      })
+Cypress.Commands.add('deleteStudent', (studentEmail) => {
+   cy.request({
+      url: Cypress.env('apiHelper') + '/students/' + studentEmail,
+      method: 'DELETE',
+   }).then(response => {
+      expect(response.status).to.eq(204)
+   })
 })
